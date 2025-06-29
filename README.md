@@ -1,4 +1,4 @@
-# 📊 Customer Churn Prediction
+﻿# 📊 Customer Churn Prediction
 
 This is a professional end-to-end machine learning project to predict customer churn using the **Telco Customer Churn dataset**.
 
@@ -31,6 +31,11 @@ source venv/bin/activate  # On Windows: venv\Scripts\activate
 pip install -r requirements.txt
 ```
 
+If you don't have `pip`, install it first:
+```bash
+python -m ensurepip --upgrade
+```
+
 ### 4. Run the Jupyter Notebook
 ```bash
 jupyter notebook
@@ -51,8 +56,36 @@ models/xgboost_model.pkl
 
 ```python
 import joblib
+import pandas as pd
+
 model = joblib.load("models/xgboost_model.pkl")
-prediction = model.predict(new_data)  # new_data must match training features
+
+# Example of new input data (must match the same features used in training)
+X_new = pd.DataFrame({
+    'gender': ['Female'],
+    'SeniorCitizen': [0],
+    'Partner': ['Yes'],
+    'Dependents': ['No'],
+    'tenure': [12],
+    'PhoneService': ['Yes'],
+    'MultipleLines': ['No'],
+    'InternetService': ['Fiber optic'],
+    'OnlineSecurity': ['No'],
+    'OnlineBackup': ['Yes'],
+    'DeviceProtection': ['No'],
+    'TechSupport': ['No'],
+    'StreamingTV': ['Yes'],
+    'StreamingMovies': ['Yes'],
+    'Contract': ['Month-to-month'],
+    'PaperlessBilling': ['Yes'],
+    'PaymentMethod': ['Electronic check'],
+    'MonthlyCharges': [70.35],
+    'TotalCharges': [1397.45]
+})
+
+# Apply preprocessing if needed (encoding/scaling)
+# Then make prediction
+prediction = model.predict(X_new)
 ```
 
 ---
